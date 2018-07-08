@@ -4,7 +4,11 @@ from std_msgs.msg import String
 from std_msgs.msg import UInt16
 import serial
 
-dev_name = '/dev/ttyACM1'
+if rospy.has_param('serial_device'):
+	dev_name = rospy.get_param('serial_device', '/dev/ttyACM1')
+else:
+	dev_name = '/dev/ttyACM1'
+
 ser = serial.Serial(dev_name, 115200, timeout=0.5) # Establish the connection on a specific port
 
 counter = 0 # Below 32 everything in ASCII is gibberish
