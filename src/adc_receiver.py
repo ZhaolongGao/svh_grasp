@@ -11,6 +11,7 @@ counter = 0 # Below 32 everything in ASCII is gibberish
 
 
 pub = rospy.Publisher('sensor_chatter', String, queue_size = 1000)
+# Publisher for individual channels
 adc0_pub = rospy.Publisher("adc0_chatter", UInt16, queue_size = 100)
 adc1_pub = rospy.Publisher("adc1_chatter", UInt16, queue_size = 100)
 rospy.init_node('sensor_publisher', anonymous=True)
