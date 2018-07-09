@@ -4,17 +4,24 @@ from std_msgs.msg import String
 from std_msgs.msg import UInt16
 import serial
 
-dev_name = '/dev/ttyACM1'
+rospy.init_node('sensor_publisher', anonymous=True)
+
+if rospy.has_param('serial_device'):
+     rospy.loginfo("'serial_device' got from parameter sever")
+     dev_name = rospy.get_param('serial_device', '/dev/ttyACM1')
+else:
+     rospy.loginfo("'serial_device' not found, Use default")
+     dev_name = '/dev/ttyACM1'
+     
 ser = serial.Serial(dev_name, 115200, timeout=0.5) # Establish the connection on a specific port
 
-counter = 0 # Below 32 everything in ASCII is gibberish
+counter = 0 # Reading counter
 
 
 pub = rospy.Publisher('sensor_chatter', String, queue_size = 1000)
 # Publisher for individual channels
 adc0_pub = rospy.Publisher("adc0_chatter", UInt16, queue_size = 100)
 adc1_pub = rospy.Publisher("adc1_chatter", UInt16, queue_size = 100)
-rospy.init_node('sensor_publisher', anonymous=True)
 
 rospy.loginfo("start reading")
 ser.write('a\n')
@@ -27,10 +34,10 @@ while True:
      if counter < 20:
      	print "test:",readings
      try:
-     	pub.publish(readings)
-     	readings_toInt = map(int, readings.split())
-     	adc0_pub.publish(readings_toInt[0])
-     	adc1_put.publish(readings_toInt[1])
+          pub.publish(readings)
+          readings_toInt = map(int, readings.strip().split())
+          adc0_pub.publish(readings_toInt[0])
+          adc1_pub.publish(readings_toInt[1])
      except:
      	pass
 

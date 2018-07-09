@@ -1,0 +1,7 @@
+<launch>
+
+  <arg name="serial_device" default="/dev/ttyACM1"/>
+
+  <node pkg="svh_grasp" name="sensor_publisher" type="adc_receiver.py"/>
+
+</launch>
