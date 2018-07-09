@@ -11,7 +11,9 @@ counter = 0 # Below 32 everything in ASCII is gibberish
 
 
 pub = rospy.Publisher('sensor_chatter', String, queue_size = 1000)
+# Publisher for individual channels
 adc0_pub = rospy.Publisher("adc0_chatter", UInt16, queue_size = 100)
+adc1_pub = rospy.Publisher("adc1_chatter", UInt16, queue_size = 100)
 rospy.init_node('sensor_publisher', anonymous=True)
 
 rospy.loginfo("start reading")
@@ -26,7 +28,9 @@ while True:
      	print "test:",readings
      try:
      	pub.publish(readings)
-     	adc0_pub.publish(int(readings.strip()))
+     	readings_toInt = map(int, readings.split())
+     	adc0_pub.publish(readings_toInt[0])
+     	adc1_put.publish(readings_toInt[1])
      except:
      	pass
 
