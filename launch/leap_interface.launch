@@ -1,0 +1,6 @@
+<launch>
+
+  <node pkg="svh_grasp" name="leap_finger_publisher" type="leap_interface_udp.py" output="screen"/>
+  <node pkg="svh_grasp" name="leap_svh_controller" type="leap_svh.py" output="screen"/>
+
+</launch>
