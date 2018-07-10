@@ -8,10 +8,10 @@ rospy.init_node('sensor_publisher', anonymous=True)
 
 if rospy.has_param('serial_device'):
      rospy.loginfo("'serial_device' got from parameter sever")
-     dev_name = rospy.get_param('serial_device', '/dev/ttyACM1')
+     dev_name = rospy.get_param('serial_device', '/dev/ttyACM0')
 else:
      rospy.loginfo("'serial_device' not found, Use default")
-     dev_name = '/dev/ttyACM1'
+     dev_name = '/dev/ttyACM0'
      
 ser = serial.Serial(dev_name, 115200, timeout=0.5) # Establish the connection on a specific port
 
