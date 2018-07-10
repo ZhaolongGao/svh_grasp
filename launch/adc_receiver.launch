@@ -1,7 +1,12 @@
 <launch>
 
-  <arg name="serial_device" default="/dev/ttyACM0"/>
+  <!-- args  -->
+  <arg name="serial_device" default="/dev/ttyACM1"/>
 
+  <!-- params -->
+  <param name="serial_device" value="$(arg serial_device)"/>
+
+  <!-- nodes -->
   <node pkg="svh_grasp" name="sensor_publisher" type="adc_receiver.py" output="screen"/>
 
 </launch>

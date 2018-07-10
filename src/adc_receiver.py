@@ -11,10 +11,11 @@ if rospy.has_param('serial_device'):
      dev_name = rospy.get_param('serial_device', '/dev/ttyACM0')
 else:
      rospy.loginfo("'serial_device' not found, Use default")
-     dev_name = '/dev/ttyACM0'
-     
-ser = serial.Serial(dev_name, 115200, timeout=0.5) # Establish the connection on a specific port
-
+     dev_name = '/dev/ttyACM1'
+    
+ser = serial.Serial(dev_name, 115200, timeout=1) # Establish the connection on a specific port
+rospy.loginfo("Wait 2s for establish the connection")
+rospy.sleep(2)
 counter = 0 # Reading counter
 
 
@@ -24,7 +25,7 @@ adc0_pub = rospy.Publisher("adc0_chatter", UInt16, queue_size = 100)
 adc1_pub = rospy.Publisher("adc1_chatter", UInt16, queue_size = 100)
 
 rospy.loginfo("start reading")
-ser.write('a\n')
+ser.write('a')
 
 while True:
      counter +=1
